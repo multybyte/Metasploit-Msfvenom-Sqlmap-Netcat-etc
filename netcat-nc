@@ -1,0 +1,43 @@
+Netcat can be use for :
+
+1. Ability to scan if a port is open on a remote system
+2. Pull the banner information from a remote system
+3. Connect to a network service manually with listening
+4. Remote administration for transferring of files
+
+===============
+
+Basic Help ---> nc -h
+
+Some important command -->
+
+1. -e : program to execute after connect
+
+2. -l : Listen mode for inbound connects
+
+3. -p : designates the local port
+
+4. -u : UDP mode
+
+5. -v : Verbose output
+
+
+TCP Connection: to check whether the port and service available. So -> as example to connect SSH
+
+nc -vn 192.168.179.146 22
+
+Banner Grabbung: 
+
+nc 192.168.179.146 80
+HEAD /HTTP/1.0 or  GET /HTTP/1.1 etc now enter
+
+Transfer Files:
+echo "This is a sample text" > file.txt
+
+nc -l -p 1605 <--- on window machine
+
+nc 192.168.1.3 1605 < file.txt  <--- on kali machine
+
+For Remote Administration:
+nc -l -p 1605 -e /bin/sh
+
